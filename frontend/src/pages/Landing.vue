@@ -3,9 +3,10 @@
     <!-- Navigation Bar -->
     <nav class="fixed top-0 w-full bg-black/80 backdrop-blur z-50 border-b border-blue-500/20">
       <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 bg-gradient-to-br from-blue-400 to-cyan-400 rounded flex items-center justify-center">
-            <span class="font-bold text-black">GC</span>
+          <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded overflow-hidden bg-white/5 flex items-center justify-center">
+            <img v-if="!logoError" :src="logoPath" alt="logo" class="w-full h-full object-cover" @error="logoError = true" />
+            <span v-else class="font-bold text-black">GC</span>
           </div>
           <h1 class="text-sm font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">
             Gulf Coast Property Group
@@ -416,6 +417,11 @@ import { ref } from 'vue'
 
 const isLoginOpen = ref(false)
 const isSignupOpen = ref(false)
+
+// Runtime logo path; place your logo at `frontend/src/assets/logo.png` or
+// set your build pipeline to copy an image to `/assets/logo.png`.
+const logoPath = '/assets/logo.png'
+const logoError = ref(false)
 </script>
 
 <style scoped>
