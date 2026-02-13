@@ -3,7 +3,11 @@ const bcrypt = require('bcryptjs')
 const { jsonResponse, parseBody } = require('./utils')
 
 // NOTE: This is a lightweight example. For production, persist users in a DB.
-const SECRET = process.env.JWT_SECRET || 'dev-secret'
+const SECRET = process.env.JWT_SECRET
+if (!SECRET) {
+  // Fail fast to avoid insecure default secrets in production
+  throw new Error('JWT_SECRET environment variable is required for auth function')
+}
 
 // Simple in-memory "users" for example purposes only
 const users = {}

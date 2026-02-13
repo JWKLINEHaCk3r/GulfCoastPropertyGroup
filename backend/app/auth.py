@@ -18,9 +18,13 @@ from sqlalchemy.orm import Session
 import jwt
 import bcrypt
 from passlib.context import CryptContext
+import os
 
 # Configuration
-SECRET_KEY = "your-secret-key-change-in-production"
+# SECRET_KEY must be provided via environment for production safety
+SECRET_KEY = os.getenv("SECRET_KEY")
+if not SECRET_KEY:
+    raise RuntimeError("SECRET_KEY environment variable not set. Set SECRET_KEY in your environment before starting the app.")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 1440  # 24 hours
 REFRESH_TOKEN_EXPIRE_DAYS = 7

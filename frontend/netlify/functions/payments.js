@@ -1,9 +1,13 @@
 const Stripe = require('stripe')
 const { jsonResponse, parseBody } = require('./utils')
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '')
-
 exports.handler = async function (event) {
+  const stripeKey = process.env.STRIPE_SECRET_KEY
+  if (!stripeKey) {
+    return jsonResponse(500, { error: 'STRIPE_SECRET_KEY not configured in environment' })
+  }
+
+  const stripe = new Stripe(stripeKey)
   const body = parseBody(event)
   try {
     const session = await stripe.checkout.sessions.create({

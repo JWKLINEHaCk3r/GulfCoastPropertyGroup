@@ -1,16 +1,22 @@
 const Stripe = require('stripe')
 const { jsonResponse } = require('./utils')
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '')
-const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET || ''
-
 exports.handler = async function (event) {
+  const stripeKey = process.env.STRIPE_SECRET_KEY
+  const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET
+  if (!stripeKey || !endpointSecret) {
+    return jsonResponse(500, { error: 'STRIPE_SECRET_KEY or STRIPE_WEBHOOK_SECRET not configured' })
+  }
+
+  const stripe = new Stripe(stripeKey)
   const sig = event.headers['stripe-signature'] || event.headers['Stripe-Signature']
   let evt
   try {
-    evt = stripe.webhooks.constructEvent(event.body, sig, endpointSecret)
+    // Use raw body for signature verification
+    const rawBody = event.body
+    evt = stripe.webhooks.constructEvent(rawBody, sig, endpointSecret)
   } catch (err) {
-    return jsonResponse(400, { error: 'Webhook signature verification failed' })
+    return jsonResponse(400, { error: 'Webhook signature verification failed', detail: err.message })
   }
 
   // Handle the event types you care about

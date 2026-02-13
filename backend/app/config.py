@@ -14,7 +14,7 @@ class Settings(BaseSettings):
     app_version: str = "1.0.0"
     environment: str = "development"
     debug: bool = False
-    secret_key: str = "change-me-in-production"
+    secret_key: Optional[str] = None
     algorithm: str = "HS256"
     access_token_expire_minutes: int = 30
     
@@ -65,7 +65,11 @@ class Settings(BaseSettings):
 @lru_cache()
 def get_settings() -> Settings:
     """Get cached settings instance"""
-    return Settings()
+    settings = Settings()
+    # In non-development environments, require a secret_key to be present
+    if settings.environment and settings.environment.lower() != "development" and not settings.secret_key:
+        raise RuntimeError("SECRET_KEY (secret_key) must be set in environment for non-development environments")
+    return settings
 
 
 # Expose settings for easy import
