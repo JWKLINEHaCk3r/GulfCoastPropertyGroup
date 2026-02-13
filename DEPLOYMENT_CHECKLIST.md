@@ -67,7 +67,22 @@ git push origin main
 1. Go to https://stripe.com
 2. Create account or login
 3. Dashboard → Developers → API keys
-4. Copy Secret key: `sk_live_...`
+4. Do not store secret keys in the repo. Instead:
+
+  - Copy production keys into your deployment platform's secret storage (Netlify env vars, Vault, or similar).
+  - Use `backend/.env.example` as a template for required variables and never commit real values.
+
+Example variables to set in production (do NOT add values to repo):
+
+```
+SECRET_KEY=
+STRIPE_SECRET_KEY=
+STRIPE_WEBHOOK_SECRET=
+OPENAI_API_KEY=
+ANTHROPIC_API_KEY=
+JWT_SECRET=
+FRONTEND_URL=
+```
 5. Add to `backend/.env`:
 ```
 STRIPE_API_KEY=sk_live_...

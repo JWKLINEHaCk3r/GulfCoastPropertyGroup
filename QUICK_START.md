@@ -36,7 +36,11 @@ Your platform needs 4 API keys to run:
 - Fill out business details
 - Dashboard → Developers → API Keys
 - Copy: `sk_test_...` (testing) or `sk_live_...` (production)
-- Save to: backend/.env → STRIPE_API_KEY=sk_...
+- Save to: backend/.env → set the keys listed in `backend/.env.example`. Do NOT commit real keys to the repository.
+
+Environment variables
+- Copy `backend/.env.example` to `backend/.env` and fill in your real values (SECRET_KEY, STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET, OPENAI_API_KEY, ANTHROPIC_API_KEY, JWT_SECRET, FRONTEND_URL, etc.).
+- For Netlify deployments, set these variables in Site Settings → Build & deploy → Environment → Environment variables.
 
 **2. OpenAI** (AI Agents)
 - Go to: https://platform.openai.com/account/api-keys
