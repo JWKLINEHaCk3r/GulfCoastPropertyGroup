@@ -1,0 +1,95 @@
+# Netlify Configuration for Real Estate Wholesale Platform
+# Docs: https://docs.netlify.com/configure-builds/file-based-configuration/
+
+[build]
+  # Base directory - where Netlify installs dependencies and runs build
+  base = "frontend"
+  
+  # Build command - runs in base directory
+  command = "npm ci && npm run build"
+  
+  # Publish directory - where the built static files are
+  publish = "dist"
+  
+  # Functions directory - serverless functions
+  functions = "netlify/functions"
+
+# Environment variables for builds
+[build.environment]
+  # Node version for building
+  NODE_VERSION = "18.17.0"
+  NPM_VERSION = "9.6.7"
+  
+  # React build configuration
+  VITE_API_BASE_URL = "https://api.yourdomain.com"
+  VITE_ENVIRONMENT = "production"
+
+# Redirect all non-file requests to index.html for React Router
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# API proxy configuration - routes API calls to your backend
+[[redirects]]
+  from = "/api/*"
+  to = "https://api.yourdomain.com/:splat"
+  status = 200
+
+# Cache headers for static assets
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
+
+[[headers]]
+  for = "/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.{js,css}"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Custom headers for security
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# Context-specific settings (preview/branch deployments)
+[context.deploy-preview]
+  command = "npm ci && npm run build:preview"
+
+[context.branch-deploy]
+  command = "npm ci && npm run build:staging"
+
+[context.production]
+  command = "npm ci && npm run build"
+
+# Build failure notifications (optional)
+[build.fail_plugins]
+  # Add failure-handling plugins here if needed
+
+# Plugin configuration for Netlify plugins
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+# Subdomain settings
+[site]
+  publish = "dist"
+  functions = "netlify/functions"
+
+# Environment-specific configurations
+[env.production]
+  environment = { VITE_ENVIRONMENT = "production", VITE_API_BASE_URL = "https://api.yourdomain.com" }
+
+[env.staging]
+  environment = { VITE_ENVIRONMENT = "staging", VITE_API_BASE_URL = "https://api-staging.yourdomain.com" }
+
+[env.development]
+  environment = { VITE_ENVIRONMENT = "development", VITE_API_BASE_URL = "http://localhost:8000" }
