@@ -15,10 +15,16 @@ from pydantic import BaseModel, Field
 from abc import ABC, abstractmethod
 import anthropic
 import openai
+import os
 
-# Initialize AI clients
-openai.api_key = "sk-your-key"
-client = anthropic.Anthropic()
+# Initialize AI clients from environment variables
+openai.api_key = os.getenv("OPENAI_API_KEY")
+ANTHROPIC_KEY = os.getenv("ANTHROPIC_API_KEY")
+try:
+    client = anthropic.Client(api_key=ANTHROPIC_KEY) if ANTHROPIC_KEY else anthropic.Client()
+except Exception:
+    # Fallback: instantiate without explicit key (some SDKs pick from env)
+    client = anthropic.Client()
 
 # ==================== DATA MODELS ====================
 

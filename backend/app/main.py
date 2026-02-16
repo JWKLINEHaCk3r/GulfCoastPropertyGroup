@@ -10,7 +10,8 @@ import logging.config
 from .config import settings
 from .database import init_db, close_db
 from .agents import init_agents
-from .api import leads, offers, buyers, deals, seo, health
+from .api import leads, offers, buyers, deals, seo, health, agents
+from . import auth, payment
 
 # Configure logging
 logging.basicConfig(
@@ -38,7 +39,19 @@ app.add_middleware(
 )
 
 # Register API routes
+# Core routes
 app.include_router(health.router, prefix="/api/v1/health", tags=["health"])
+
+# Authentication routes
+app.include_router(auth.router, tags=["auth"])
+
+# Payment & Subscriptions routes
+app.include_router(payment.router, tags=["subscriptions"])
+
+# AI Agents routes
+app.include_router(agents.router, tags=["agents"])
+
+# Business logic routes
 app.include_router(leads.router, prefix="/api/v1/leads", tags=["leads"])
 app.include_router(offers.router, prefix="/api/v1/offers", tags=["offers"])
 app.include_router(buyers.router, prefix="/api/v1/buyers", tags=["buyers"])

@@ -15,7 +15,10 @@ import stripe
 from auth import get_current_user, require_role, UserRole, SubscriptionTier, ACCESS_TOKEN_EXPIRE_MINUTES
 
 # Configuration
-stripe.api_key = "sk_test_your_stripe_key"
+import os
+
+# Read Stripe secret from environment (set STRIPE_SECRET_KEY in production)
+stripe.api_key = os.getenv("STRIPE_SECRET_KEY", "")
 
 # ==================== ENUMS ====================
 

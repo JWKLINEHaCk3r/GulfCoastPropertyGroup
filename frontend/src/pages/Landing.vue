@@ -414,13 +414,12 @@
 
 <script setup>
 import { ref } from 'vue'
+import logo from '@/assets/logo.svg'
 
 const isLoginOpen = ref(false)
 const isSignupOpen = ref(false)
 
-// Runtime logo path; place your logo at `frontend/src/assets/logo.png` or
-// set your build pipeline to copy an image to `/assets/logo.png`.
-const logoPath = '/assets/logo.png'
+const logoPath = logo
 const logoError = ref(false)
 </script>
 
