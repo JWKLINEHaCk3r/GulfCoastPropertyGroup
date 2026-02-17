@@ -391,3 +391,4 @@ canvas {
   color: #e0f2fe;
 }
 </style>
+</template>
