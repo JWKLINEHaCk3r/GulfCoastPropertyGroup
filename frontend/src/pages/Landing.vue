@@ -2,8 +2,8 @@
   <div class="bg-black text-white min-h-screen overflow-hidden font-sans">
     <!-- Animated Background -->
     <div class="fixed inset-0 z-0">
-      <canvas ref="canvas" class="w-full h-full"></canvas>
-      <div class="absolute inset-0 bg-gradient-to-br from-blue-950/20 via-black to-cyan-950/20"></div>
+      <canvas ref="canvas" class="w-full h-full" />
+      <div class="absolute inset-0 bg-gradient-to-br from-blue-950/20 via-black to-cyan-950/20" />
     </div>
 
     <!-- Content Wrapper -->
