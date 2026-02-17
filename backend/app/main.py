@@ -4,8 +4,11 @@ Main FastAPI application entry point
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from fastapi.staticfiles import StaticFiles
 import logging
 import logging.config
+import os
+from pathlib import Path
 
 from .config import settings
 from .database import init_db, close_db
@@ -57,6 +60,11 @@ app.include_router(offers.router, prefix="/api/v1/offers", tags=["offers"])
 app.include_router(buyers.router, prefix="/api/v1/buyers", tags=["buyers"])
 app.include_router(deals.router, prefix="/api/v1/deals", tags=["deals"])
 app.include_router(seo.router, prefix="/api/v1/seo", tags=["seo"])
+
+# Mount static frontend files if they exist
+static_dir = Path(__file__).parent.parent / "static"
+if static_dir.exists():
+    app.mount("/", StaticFiles(directory=str(static_dir), html=True), name="static")
 
 
 @app.on_event("startup")

@@ -5,11 +5,11 @@
       <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
           <div class="flex items-center gap-3">
           <div class="w-10 h-10 rounded overflow-hidden bg-white/5 flex items-center justify-center">
-            <img v-if="!logoError" :src="logoPath" alt="logo" class="w-full h-full object-cover" @error="logoError = true" />
-            <span v-else class="font-bold text-black">GC</span>
+            <img v-if="!logoError" :src="logoPath" alt="Keystone Velocity Capital" class="w-full h-full object-cover" @error="logoError = true" />
+            <span v-else class="font-bold text-black">KVC</span>
           </div>
           <h1 class="text-sm font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">
-            Gulf Coast Property Group
+            KEYSTONE VELOCITY CAPITAL
           </h1>
         </div>
         
@@ -414,12 +414,12 @@
 
 <script setup>
 import { ref } from 'vue'
-import logo from '@/assets/logo.svg'
+import keystoneLogo from '@/assets/keystone-logo.svg'
 
 const isLoginOpen = ref(false)
 const isSignupOpen = ref(false)
 
-const logoPath = logo
+const logoPath = keystoneLogo
 const logoError = ref(false)
 </script>
 
