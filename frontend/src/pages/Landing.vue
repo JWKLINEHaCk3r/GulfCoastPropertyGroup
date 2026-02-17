@@ -1,431 +1,393 @@
 <template>
-  <div class="bg-black text-white min-h-screen overflow-hidden">
-    <!-- Navigation Bar -->
-    <nav class="fixed top-0 w-full bg-black/80 backdrop-blur z-50 border-b border-blue-500/20">
-      <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-          <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded overflow-hidden bg-white/5 flex items-center justify-center">
-            <img v-if="!logoError" :src="logoPath" alt="Keystone Velocity Capital" class="w-full h-full object-cover" @error="logoError = true" />
-            <span v-else class="font-bold text-black">KVC</span>
-          </div>
-          <h1 class="text-sm font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">
-            KEYSTONE VELOCITY CAPITAL
-          </h1>
-        </div>
-        
-        <div class="flex gap-8 items-center">
-          <a href="#features" class="text-sm hover:text-cyan-400 transition">Features</a>
-          <a href="#pricing" class="text-sm hover:text-cyan-400 transition">Pricing</a>
-          <a href="#contact" class="text-sm hover:text-cyan-400 transition">Contact</a>
-          <button @click="isLoginOpen = true" class="px-4 py-2 bg-gradient-to-r from-blue-500 to-cyan-500 rounded text-sm font-medium hover:shadow-lg hover:shadow-cyan-500/50 transition">
-            Sign In
-          </button>
-        </div>
-      </div>
-    </nav>
+  <div class="bg-black text-white min-h-screen overflow-hidden font-sans">
+    <!-- Animated Background -->
+    <div class="fixed inset-0 z-0">
+      <canvas ref="canvas" class="w-full h-full"></canvas>
+      <div class="absolute inset-0 bg-gradient-to-br from-blue-950/20 via-black to-cyan-950/20"></div>
+    </div>
 
-    <!-- Hero Section -->
-    <section class="pt-32 pb-20 px-4 relative overflow-hidden">
-      <div class="absolute inset-0 bg-gradient-to-b from-blue-500/10 to-transparent pointer-events-none"></div>
-      <div class="max-w-5xl mx-auto relative z-10 text-center">
-        <h2 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-          Find <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-teal-400">Every Deal</span> in America
-        </h2>
-        <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-          AI-powered real estate automation that finds motivated sellers, generates offers, and closes deals 24/7. Find 100+ deals daily. Close them in 10 days or less.
-        </p>
-        
-        <div class="flex gap-4 justify-center mb-12">
-          <button @click="isSignupOpen = true" class="px-8 py-4 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg font-semibold hover:shadow-lg hover:shadow-cyan-500/50 transition text-lg">
-            Start Free Trial
-          </button>
-          <button class="px-8 py-4 border border-cyan-400/50 rounded-lg font-semibold hover:bg-cyan-400/10 transition text-lg">
-            Book Demo
-          </button>
-        </div>
-
-        <div class="grid grid-cols-3 gap-8 max-w-3xl mx-auto text-sm">
-          <div class="border border-blue-500/30 rounded p-4 bg-blue-500/5">
-            <div class="text-2xl font-bold text-cyan-400">100+</div>
-            <div class="text-gray-400">Daily Leads</div>
-          </div>
-          <div class="border border-blue-500/30 rounded p-4 bg-blue-500/5">
-            <div class="text-2xl font-bold text-cyan-400">10x</div>
-            <div class="text-gray-400">Faster Sourcing</div>
-          </div>
-          <div class="border border-blue-500/30 rounded p-4 bg-blue-500/5">
-            <div class="text-2xl font-bold text-cyan-400">50+</div>
-            <div class="text-gray-400">States Coverage</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Value Propositions -->
-    <section class="py-20 px-4 border-t border-blue-500/20">
-      <div class="max-w-6xl mx-auto">
-        <h3 class="text-3xl font-bold mb-12 text-center">Solve Every Problem in Real Estate</h3>
-        
-        <div class="grid md:grid-cols-5 gap-4">
-          <div class="border border-blue-500/30 rounded p-6 bg-blue-500/5 hover:border-cyan-400/50 transition">
-            <div class="text-3xl mb-4">🔎</div>
-            <h4 class="font-bold mb-2 text-cyan-400">Find Deals</h4>
-            <p class="text-sm text-gray-400">Scan 50+ states for FSBO, tax delinquent, distressed properties daily</p>
-          </div>
-          
-          <div class="border border-blue-500/30 rounded p-6 bg-blue-500/5 hover:border-cyan-400/50 transition">
-            <div class="text-3xl mb-4">💰</div>
-            <h4 class="font-bold mb-2 text-cyan-400">Smart Offers</h4>
-            <p class="text-sm text-gray-400">AI calculates optimal offers using market data, comps, and cash flow analysis</p>
-          </div>
-          
-          <div class="border border-blue-500/30 rounded p-6 bg-blue-500/5 hover:border-cyan-400/50 transition">
-            <div class="text-3xl mb-4">👥</div>
-            <h4 class="font-bold mb-2 text-cyan-400">Match Buyers</h4>
-            <p class="text-sm text-gray-400">Auto-match deals with investors who want exactly what you have</p>
-          </div>
-          
-          <div class="border border-blue-500/30 rounded p-6 bg-blue-500/5 hover:border-cyan-400/50 transition">
-            <div class="text-3xl mb-4">📝</div>
-            <h4 class="font-bold mb-2 text-cyan-400">Sign Contracts</h4>
-            <p class="text-sm text-gray-400">Generate state-specific contracts and get e-signatures in minutes</p>
-          </div>
-          
-          <div class="border border-blue-500/30 rounded p-6 bg-blue-500/5 hover:border-cyan-400/50 transition">
-            <div class="text-3xl mb-4">🏦</div>
-            <h4 class="font-bold mb-2 text-cyan-400">Secure Funding</h4>
-            <p class="text-sm text-gray-400">Match with hard money lenders and get pre-approval instantly</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- How It Works -->
-    <section class="py-20 px-4 border-t border-blue-500/20">
-      <div class="max-w-4xl mx-auto">
-        <h3 class="text-3xl font-bold mb-12 text-center">Watch the Automation Do the Work</h3>
-        
-        <div class="space-y-6">
-          <div class="flex gap-6 items-start">
-            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center flex-shrink-0">
-              <span class="font-bold">1</span>
+    <!-- Content Wrapper -->
+    <div class="relative z-10">
+      <!-- Premium Navigation -->
+      <nav class="fixed top-0 w-full bg-black/40 backdrop-blur-xl border-b border-blue-500/10 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+          <div class="flex items-center gap-4 group">
+            <div class="w-14 h-14 rounded-xl overflow-hidden bg-gradient-to-br from-blue-500/20 to-cyan-500/20 flex items-center justify-center border border-cyan-500/30 group-hover:border-cyan-400/60 transition-all duration-300 shadow-lg shadow-cyan-500/10">
+              <img src="@/assets/keystone-logo.svg" alt="Keystone" class="w-10 h-10 object-cover" />
             </div>
             <div>
-              <h4 class="font-bold text-lg mb-2">AI Finds 100+ Daily Leads</h4>
-              <p class="text-gray-400">Our agents scan millions of properties daily across all 50 states and score each by motivation level</p>
+              <h1 class="text-lg font-black bg-clip-text text-transparent bg-gradient-to-r from-cyan-300 via-blue-300 to-cyan-400">KEYSTONE</h1>
+              <p class="text-xs text-cyan-400/70 font-medium">VELOCITY CAPITAL</p>
             </div>
           </div>
           
-          <div class="flex gap-6 items-start">
-            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center flex-shrink-0">
-              <span class="font-bold">2</span>
-            </div>
-            <div>
-              <h4 class="font-bold text-lg mb-2">Automated Outreach & Qualification</h4>
-              <p class="text-gray-400">SMS + Email follow-ups with personalized messages. System auto-qualifies which sellers want to sell</p>
-            </div>
-          </div>
-          
-          <div class="flex gap-6 items-start">
-            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center flex-shrink-0">
-              <span class="font-bold">3</span>
-            </div>
-            <div>
-              <h4 class="font-bold text-lg mb-2">Generate Smart Offers</h4>
-              <p class="text-gray-400">AI calculates ARV, repair costs, and optimal price. Send offers automatically via email</p>
-            </div>
-          </div>
-          
-          <div class="flex gap-6 items-start">
-            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center flex-shrink-0">
-              <span class="font-bold">4</span>
-            </div>
-            <div>
-              <h4 class="font-bold text-lg mb-2">Negotiate & Get Signature</h4>
-              <p class="text-gray-400">System handles counter-offers, generates contracts, and sends for esignature. You just review & approve</p>
-            </div>
-          </div>
-          
-          <div class="flex gap-6 items-start">
-            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center flex-shrink-0">
-              <span class="font-bold">5</span>
-            </div>
-            <div>
-              <h4 class="font-bold text-lg mb-2">Match with Buyer & Close</h4>
-              <p class="text-gray-400">System shows deal to investors who want it, coordinates due diligence, gets buyer into position for closing</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Results Section -->
-    <section class="py-20 px-4 border-t border-blue-500/20">
-      <div class="max-w-5xl mx-auto">
-        <h3 class="text-3xl font-bold mb-12 text-center">Results That Don't Lie</h3>
-        
-        <div class="grid md:grid-cols-3 gap-8">
-          <div class="p-8 border border-blue-500/30 rounded bg-gradient-to-br from-blue-500/10 to-transparent">
-            <div class="text-4xl font-bold text-cyan-400 mb-2">312%</div>
-            <p class="text-gray-400 text-sm">Average ROI increase in first quarter (more deals at better prices)</p>
-          </div>
-          
-          <div class="p-8 border border-blue-500/30 rounded bg-gradient-to-br from-blue-500/10 to-transparent">
-            <div class="text-4xl font-bold text-cyan-400 mb-2">10x</div>
-            <p class="text-gray-400 text-sm">More leads generated compared to manual methods (per month)</p>
-          </div>
-          
-          <div class="p-8 border border-blue-500/30 rounded bg-gradient-to-br from-blue-500/10 to-transparent">
-            <div class="text-4xl font-bold text-cyan-400 mb-2">5 min</div>
-            <p class="text-gray-400 text-sm">Average time to send offer (vs. hours of manual research)</p>
-          </div>
-
-          <div class="p-8 border border-blue-500/30 rounded bg-gradient-to-br from-blue-500/10 to-transparent">
-            <div class="text-4xl font-bold text-cyan-400 mb-2">50+</div>
-            <p class="text-gray-400 text-sm">Statewide coverage (all 50 states + major metros)</p>
-          </div>
-          
-          <div class="p-8 border border-blue-500/30 rounded bg-gradient-to-br from-blue-500/10 to-transparent">
-            <div class="text-4xl font-bold text-cyan-400 mb-2">1000+</div>
-            <p class="text-gray-400 text-sm">Properties analyzed daily for your target market</p>
-          </div>
-          
-          <div class="p-8 border border-blue-500/30 rounded bg-gradient-to-br from-blue-500/10 to-transparent">
-            <div class="text-4xl font-bold text-cyan-400 mb-2">99.9%</div>
-            <p class="text-gray-400 text-sm">System uptime (deals running 24/7 while you sleep)</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Pricing Section -->
-    <section class="py-20 px-4 border-t border-blue-500/20" id="pricing">
-      <div class="max-w-6xl mx-auto">
-        <h3 class="text-3xl font-bold mb-4 text-center">Simple, Transparent Pricing</h3>
-        <p class="text-center text-gray-400 mb-12">No hidden fees. Pay for what you use. Cancel anytime.</p>
-        
-        <div class="grid md:grid-cols-3 gap-8">
-          <!-- Starter Plan -->
-          <div class="border border-blue-500/30 rounded-lg p-8 bg-blue-500/5 hover:border-cyan-400/50 transition">
-            <div class="text-2xl font-bold mb-2">Starter</div>
-            <div class="text-4xl font-bold text-cyan-400 mb-1">$299<span class="text-lg text-gray-400">/mo</span></div>
-            <p class="text-sm text-gray-400 mb-8">For wholesalers getting started</p>
-            
-            <ul class="space-y-4 text-sm mb-8">
-              <li class="flex gap-3"><span class="text-cyan-400">✓</span> 30 leads/day</li>
-              <li class="flex gap-3"><span class="text-cyan-400">✓</span> Automated outreach</li>
-              <li class="flex gap-3"><span class="text-cyan-400">✓</span> Offer generation</li>
-              <li class="flex gap-3"><span class="text-cyan-400">✓</span> Basic analytics</li>
-              <li class="flex gap-3"><span class="text-cyan-400">✓</span> Email & SMS</li>
-              <li class="flex gap-3"><span class="text-gray-600">✗</span> Contract signing</li>
-            </ul>
-            
-            <button class="w-full py-2 border border-blue-400 rounded hover:bg-blue-400/10 transition">
-              Get Started
-            </button>
-          </div>
-
-          <!-- Professional Plan (Popular) -->
-          <div class="border border-cyan-400/50 rounded-lg p-8 bg-gradient-to-br from-cyan-500/10 to-blue-500/5 hover:border-cyan-400 transition relative">
-            <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gradient-to-r from-blue-500 to-cyan-500 px-4 py-1 rounded-full text-sm font-semibold">
-              MOST POPULAR
-            </div>
-            
-            <div class="text-2xl font-bold mb-2">Professional</div>
-            <div class="text-4xl font-bold text-cyan-400 mb-1">$799<span class="text-lg text-gray-400">/mo</span></div>
-            <p class="text-sm text-gray-400 mb-8">For serious wholesalers</p>
-            
-            <ul class="space-y-4 text-sm mb-8">
-              <li class="flex gap-3"><span class="text-cyan-400">✓</span> 100+ leads/day</li>
-              <li class="flex gap-3"><span class="text-cyan-400">✓</span> Automated outreach</li>
-              <li class="flex gap-3"><span class="text-cyan-400">✓</span> Smart offer generation</li>
-              <li class="flex gap-3"><span class="text-cyan-400">✓</span> Advanced analytics</li>
-              <li class="flex gap-3"><span class="text-cyan-400">✓</span> Contract signing</li>
-              <li class="flex gap-3"><span class="text-cyan-400">✓</span> Investor matching</li>
-            </ul>
-            
-            <button class="w-full py-2 bg-gradient-to-r from-blue-500 to-cyan-500 rounded hover:shadow-lg hover:shadow-cyan-500/50 transition font-semibold">
-              Start Free Trial
-            </button>
-          </div>
-
-          <!-- Enterprise Plan -->
-          <div class="border border-blue-500/30 rounded-lg p-8 bg-blue-500/5 hover:border-cyan-400/50 transition">
-            <div class="text-2xl font-bold mb-2">Enterprise</div>
-            <div class="text-4xl font-bold text-cyan-400 mb-1">Custom<span class="text-lg text-gray-400">pricing</span></div>
-            <p class="text-sm text-gray-400 mb-8">For teams & large operations</p>
-            
-            <ul class="space-y-4 text-sm mb-8">
-              <li class="flex gap-3"><span class="text-cyan-400">✓</span> Unlimited leads</li>
-              <li class="flex gap-3"><span class="text-cyan-400">✓</span> Everything in Pro</li>
-              <li class="flex gap-3"><span class="text-cyan-400">✓</span> Private white-label option</li>
-              <li class="flex gap-3"><span class="text-cyan-400">✓</span> Dedicated account manager</li>
-              <li class="flex gap-3"><span class="text-cyan-400">✓</span> Custom integrations</li>
-              <li class="flex gap-3"><span class="text-cyan-400">✓</span> API access</li>
-            </ul>
-            
-            <button class="w-full py-2 border border-blue-400 rounded hover:bg-blue-400/10 transition">
-              Book Demo
+          <div class="flex gap-12 items-center">
+            <a href="#agents" class="text-sm font-medium text-gray-400 hover:text-cyan-300 transition duration-300">AI Agents</a>
+            <a href="#automation" class="text-sm font-medium text-gray-400 hover:text-cyan-300 transition duration-300">Automation</a>
+            <a href="#performance" class="text-sm font-medium text-gray-400 hover:text-cyan-300 transition duration-300">Performance</a>
+            <button @click="scrollToSection('contact')" class="px-6 py-2.5 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-lg font-semibold text-sm hover:shadow-xl hover:shadow-cyan-500/40 transition-all duration-300 transform hover:scale-105">
+              Launch Platform
             </button>
           </div>
         </div>
+      </nav>
 
-        <div class="mt-12 grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
-          <div class="border border-blue-500/30 rounded p-6 bg-blue-500/5">
-            <h4 class="font-bold mb-4">5 Revenue Streams Included</h4>
-            <ul class="space-y-2 text-sm text-gray-400">
-              <li>✓ Wholesale finder's fees (3-7%)</li>
-              <li>✓ Investor subscriptions</li>
-              <li>✓ Lead sales to partners</li>
-              <li>✓ Market report sales</li>
-              <li>✓ Affiliate commissions</li>
-            </ul>
-          </div>
-          
-          <div class="border border-blue-500/30 rounded p-6 bg-blue-500/5">
-            <h4 class="font-bold mb-4">No Contracts. No Setup Fees.</h4>
-            <ul class="space-y-2 text-sm text-gray-400">
-              <li>✓ Cancel anytime</li>
-              <li>✓ Money-back guarantee</li>
-              <li>✓ Free onboarding</li>
-              <li>✓ 24/7 support</li>
-              <li>✓ Regular training</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
+      <!-- Hero Section - Premium 4K -->
+      <section class="pt-40 pb-32 px-6 relative overflow-hidden">
+        <!-- Animated Orbs -->
+        <div class="absolute top-20 left-10 w-72 h-72 bg-cyan-500/20 rounded-full blur-3xl animate-pulse"></div>
+        <div class="absolute bottom-0 right-20 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse" style="animation-delay: 2s;"></div>
 
-    <!-- Testimonials -->
-    <section class="py-20 px-4 border-t border-blue-500/20">
-      <div class="max-w-4xl mx-auto">
-        <h3 class="text-3xl font-bold mb-12 text-center">Real Results from Real Users</h3>
-        
-        <div class="space-y-8">
-          <div class="border border-blue-500/30 rounded p-8 bg-blue-500/5">
-            <div class="flex gap-4">
-              <div class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-400 to-cyan-400 flex-shrink-0"></div>
-              <div class="flex-1">
-                <h4 class="font-bold mb-1">James Mitchell</h4>
-                <p class="text-sm text-gray-400 mb-4">Texas Wholesaler, 12+ years experience</p>
-                <p class="text-gray-300 mb-4">"I was manually sourcing 10-15 leads per month. With Gulf Coast, I'm getting 100+ qualified leads daily. Closed 15 deals in my first quarter. Best investment for my business."</p>
-                <div class="text-yellow-400">★★★★★</div>
+        <div class="max-w-6xl mx-auto relative z-10">
+          <!-- Logo Center with Glow -->
+          <div class="flex justify-center mb-12">
+            <div class="w-48 h-48 rounded-2xl overflow-hidden bg-gradient-to-br from-blue-600/30 to-cyan-600/30 p-1 border border-cyan-400/40 shadow-2xl shadow-cyan-500/20 transform hover:scale-110 transition-transform duration-500">
+              <div class="w-full h-full bg-black rounded-xl overflow-hidden flex items-center justify-center">
+                <img src="@/assets/keystone-logo.svg" alt="Keystone Velocity Capital" class="w-40 h-40 object-cover drop-shadow-2xl" />
               </div>
             </div>
           </div>
 
-          <div class="border border-blue-500/30 rounded p-8 bg-blue-500/5">
-            <div class="flex gap-4">
-              <div class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-400 to-cyan-400 flex-shrink-0"></div>
-              <div class="flex-1">
-                <h4 class="font-bold mb-1">Sarah Chen</h4>
-                <p class="text-sm text-gray-400 mb-4">Investor & Fund Manager</p>
-                <p class="text-gray-300 mb-4">"The investor portal is legitimately game-changing. I have 50+ on-market deals at my fingertips. The automatic deal matching saved me 15+ hours per week searching."</p>
-                <div class="text-yellow-400">★★★★★</div>
-              </div>
+          <!-- Main Headline -->
+          <div class="text-center mb-8">
+            <h2 class="text-7xl md:text-8xl font-black mb-6 leading-tight max-w-4xl mx-auto">
+              <span class="block mb-4">CAPITAL</span>
+              <span class="bg-clip-text text-transparent bg-gradient-to-r from-cyan-300 via-blue-300 to-cyan-400 animate-pulse">AT</span>
+              <span class="block">VELOCITY</span>
+            </h2>
+            
+            <p class="text-xl md:text-2xl text-cyan-100/80 font-light max-w-3xl mx-auto mb-12 leading-relaxed">
+              Enterprise-Grade AI Automation Platform powered by 12 specialized agents. 
+              <span class="text-cyan-300 font-semibold">Scale your business to 6-7 figures effortlessly.</span>
+            </p>
+          </div>
+
+          <!-- Key Metrics -->
+          <div class="grid grid-cols-3 gap-6 max-w-2xl mx-auto mb-16">
+            <div class="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 border border-cyan-400/30 rounded-xl p-6 text-center hover:border-cyan-300/60 transition-all duration-300 group">
+              <div class="text-4xl font-black text-cyan-300 group-hover:text-cyan-200 transition mb-2">100%</div>
+              <div class="text-sm text-gray-400 font-medium">Automation</div>
+            </div>
+            <div class="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 border border-cyan-400/30 rounded-xl p-6 text-center hover:border-cyan-300/60 transition-all duration-300 group">
+              <div class="text-4xl font-black text-cyan-300 group-hover:text-cyan-200 transition mb-2">24/7</div>
+              <div class="text-sm text-gray-400 font-medium">AI Agents Active</div>
+            </div>
+            <div class="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 border border-cyan-400/30 rounded-xl p-6 text-center hover:border-cyan-300/60 transition-all duration-300 group">
+              <div class="text-4xl font-black text-cyan-300 group-hover:text-cyan-200 transition mb-2">$$$</div>
+              <div class="text-sm text-gray-400 font-medium">Revenue Growth</div>
             </div>
           </div>
 
-          <div class="border border-blue-500/30 rounded p-8 bg-blue-500/5">
-            <div class="flex gap-4">
-              <div class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-400 to-cyan-400 flex-shrink-0"></div>
-              <div class="flex-1">
-                <h4 class="font-bold mb-1">Michael Rodriguez</h4>
-                <p class="text-sm text-gray-400 mb-4">Hard Money Lender</p>
-                <p class="text-gray-300 mb-4">"The API integration means I see qualified deals in real-time. This system is helping me deploy capital way faster. My portfolio ROI is up 40%."</p>
-                <div class="text-yellow-400">★★★★★</div>
+          <!-- CTA Buttons -->
+          <div class="flex flex-col sm:flex-row gap-6 justify-center">
+            <button class="px-10 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-xl font-bold text-lg hover:shadow-2xl hover:shadow-cyan-500/50 transition-all duration-300 transform hover:scale-105 group relative overflow-hidden">
+              <span class="relative z-10">Activate AI Agents</span>
+              <div class="absolute inset-0 bg-gradient-to-r from-cyan-600 to-blue-700 rounded-xl scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+            </button>
+            <button class="px-10 py-4 border-2 border-cyan-400/50 rounded-xl font-bold text-lg hover:bg-cyan-400/10 transition-all duration-300 group">
+              <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-blue-300 group-hover:from-cyan-200 group-hover:to-blue-200">View Demo</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- AI Agents Section -->
+      <section id="agents" class="py-32 px-6 relative">
+        <div class="max-w-7xl mx-auto">
+          <div class="text-center mb-20">
+            <h3 class="text-5xl md:text-6xl font-black mb-6">
+              <span class="bg-clip-text text-transparent bg-gradient-to-r from-cyan-300 to-blue-400">12 AI Agents</span>
+              <br />Working For You
+            </h3>
+            <p class="text-lg text-gray-400 max-w-2xl mx-auto">Specialized autonomous agents, each expert in their domain. Working 24/7 to identify opportunities and execute deals.</p>
+          </div>
+
+          <!-- Agent Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div v-for="agent in agents" :key="agent.id" class="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 border border-cyan-400/30 rounded-2xl p-8 hover:border-cyan-300/70 hover:shadow-2xl hover:shadow-cyan-500/20 transition-all duration-300 group cursor-pointer">
+              <div class="text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">{{ agent.icon }}</div>
+              <h4 class="text-xl font-black text-cyan-300 mb-3 group-hover:text-cyan-200">{{ agent.name }}</h4>
+              <p class="text-gray-400 text-sm leading-relaxed">{{ agent.description }}</p>
+              <div class="mt-6 h-1 w-0 group-hover:w-full bg-gradient-to-r from-cyan-500 to-blue-600 transition-all duration-300"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Automation Flow Section -->
+      <section id="automation" class="py-32 px-6 relative">
+        <div class="max-w-7xl mx-auto">
+          <h3 class="text-5xl md:text-6xl font-black text-center mb-20">
+            <span class="bg-clip-text text-transparent bg-gradient-to-r from-cyan-300 to-blue-400">Automated Workflow</span>
+          </h3>
+
+          <!-- Process Flow -->
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div v-for="(step, idx) in automationSteps" :key="idx" class="relative">
+              <div class="bg-gradient-to-br from-cyan-500/20 to-blue-500/20 border border-cyan-400/40 rounded-2xl p-8 h-full hover:border-cyan-300/70 transition-all duration-300 group">
+                <div class="absolute -top-6 -left-6 w-12 h-12 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full flex items-center justify-center font-bold text-lg shadow-lg">
+                  {{ idx + 1 }}
+                </div>
+                <h4 class="text-xl font-black text-cyan-300 mb-4 mt-4">{{ step.title }}</h4>
+                <p class="text-gray-400 text-sm leading-relaxed">{{ step.description }}</p>
+              </div>
+              <div v-if="idx < automationSteps.length - 1" class="hidden md:block absolute top-1/2 -right-4 transform -translate-y-1/2">
+                <svg class="w-8 h-8 text-cyan-500/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Final CTA -->
-    <section class="py-20 px-4 border-t border-blue-500/20 bg-gradient-to-b from-transparent to-blue-500/10">
-      <div class="max-w-4xl mx-auto text-center">
-        <h3 class="text-4xl font-bold mb-6">Ready to Automate Your Business?</h3>
-        <p class="text-xl text-gray-300 mb-8">Start finding deals and closing contracts in minutes, not months.</p>
-        
-        <div class="flex gap-4 justify-center">
-          <button @click="isSignupOpen = true" class="px-8 py-4 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg font-semibold hover:shadow-lg hover:shadow-cyan-500/50 transition text-lg">
-            Start Free 7-Day Trial
-          </button>
-          <button class="px-8 py-4 border border-cyan-400/50 rounded-lg font-semibold hover:bg-cyan-400/10 transition text-lg">
-            Schedule Demo
-          </button>
-        </div>
-        
-        <p class="text-sm text-gray-400 mt-8">✓ No credit card required  ✓ Access to all features  ✓ 30-day money-back guarantee</p>
-      </div>
-    </section>
+      <!-- Performance Metrics -->
+      <section id="performance" class="py-32 px-6 relative">
+        <div class="max-w-7xl mx-auto">
+          <h3 class="text-5xl md:text-6xl font-black text-center mb-20">
+            <span class="bg-clip-text text-transparent bg-gradient-to-r from-cyan-300 to-blue-400">Performance Analytics</span>
+          </h3>
 
-    <!-- Footer -->
-    <footer class="border-t border-blue-500/20 py-12 px-4">
-      <div class="max-w-6xl mx-auto">
-        <div class="grid md:grid-cols-4 gap-8 mb-8">
-          <div>
-            <h4 class="font-bold mb-4">Product</h4>
-            <ul class="space-y-2 text-sm text-gray-400">
-              <li><a href="#" class="hover:text-cyan-400">Features</a></li>
-              <li><a href="#" class="hover:text-cyan-400">Pricing</a></li>
-              <li><a href="#" class="hover:text-cyan-400">API Docs</a></li>
-            </ul>
-          </div>
-          
-          <div>
-            <h4 class="font-bold mb-4">Company</h4>
-            <ul class="space-y-2 text-sm text-gray-400">
-              <li><a href="#" class="hover:text-cyan-400">About</a></li>
-              <li><a href="#" class="hover:text-cyan-400">Blog</a></li>
-              <li><a href="#" class="hover:text-cyan-400">Contact</a></li>
-            </ul>
-          </div>
-          
-          <div>
-            <h4 class="font-bold mb-4">Legal</h4>
-            <ul class="space-y-2 text-sm text-gray-400">
-              <li><a href="#" class="hover:text-cyan-400">Privacy</a></li>
-              <li><a href="#" class="hover:text-cyan-400">Terms</a></li>
-              <li><a href="#" class="hover:text-cyan-400">Compliance</a></li>
-            </ul>
-          </div>
-          
-          <div>
-            <h4 class="font-bold mb-4">Connect</h4>
-            <ul class="space-y-2 text-sm text-gray-400">
-              <li><a href="#" class="hover:text-cyan-400">Twitter</a></li>
-              <li><a href="#" class="hover:text-cyan-400">LinkedIn</a></li>
-              <li><a href="#" class="hover:text-cyan-400">Facebook</a></li>
-            </ul>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 border border-cyan-400/30 rounded-2xl p-8">
+              <h4 class="text-2xl font-black text-cyan-300 mb-6">Deal Pipeline</h4>
+              <div class="space-y-4">
+                <div v-for="metric in pipelineMetrics" :key="metric.label" class="flex items-center justify-between">
+                  <span class="text-gray-400">{{ metric.label }}</span>
+                  <div class="flex items-center gap-4">
+                    <div class="w-32 h-2 bg-gray-800 rounded-full overflow-hidden">
+                      <div class="h-full bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full" :style="{ width: metric.value + '%' }"></div>
+                    </div>
+                    <span class="text-cyan-300 font-bold text-sm w-12 text-right">{{ metric.value }}%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 border border-cyan-400/30 rounded-2xl p-8">
+              <h4 class="text-2xl font-black text-cyan-300 mb-6">Revenue Impact</h4>
+              <div class="space-y-5">
+                <div v-for="roi in revenueMetrics" :key="roi.label" class="border-b border-cyan-500/20 pb-4">
+                  <p class="text-gray-400 text-sm mb-2">{{ roi.label }}</p>
+                  <p class="text-3xl font-black text-cyan-400">{{ roi.value }}</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        
-        <div class="border-t border-blue-500/20 pt-8 flex justify-between items-center text-sm text-gray-400">
-          <p>&copy; 2026 Gulf Coast Property Group. All rights reserved.</p>
-          <p>Made with ❤️ for real estate wholesalers</p>
-        </div>
-      </div>
-    </footer>
+      </section>
 
-    <!-- Auth Modals will go here -->
+      <!-- Features Showcase -->
+      <section class="py-32 px-6 relative">
+        <div class="max-w-7xl mx-auto">
+          <h3 class="text-5xl md:text-6xl font-black text-center mb-20">
+            <span class="bg-clip-text text-transparent bg-gradient-to-r from-cyan-300 to-blue-400">Enterprise Features</span>
+          </h3>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div v-for="feature in features" :key="feature.title" class="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 border border-cyan-400/30 rounded-2xl p-8 hover:border-cyan-300/70 transition-all duration-300 group">
+              <div class="text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">{{ feature.icon }}</div>
+              <h4 class="text-xl font-black text-cyan-300 mb-3 group-hover:text-cyan-200 transition">{{ feature.title }}</h4>
+              <p class="text-gray-400 text-sm leading-relaxed">{{ feature.description }}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA Section -->
+      <section id="contact" class="py-32 px-6 relative">
+        <div class="max-w-4xl mx-auto text-center">
+          <h3 class="text-6xl md:text-7xl font-black mb-8">
+            Ready to Scale to
+            <br />
+            <span class="bg-clip-text text-transparent bg-gradient-to-r from-cyan-300 to-blue-400">7 Figures?</span>
+          </h3>
+          
+          <p class="text-xl text-gray-400 mb-12 max-w-2xl mx-auto">
+            Join industry leaders already using Keystone Velocity Capital to automate their entire business and scale exponentially.
+          </p>
+
+          <div class="flex flex-col sm:flex-row gap-6 justify-center">
+            <button class="px-12 py-5 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-xl font-bold text-lg hover:shadow-2xl hover:shadow-cyan-500/50 transition-all duration-300 transform hover:scale-105">
+              Get Started Now
+            </button>
+            <button class="px-12 py-5 border-2 border-cyan-400/50 rounded-xl font-bold text-lg hover:bg-cyan-400/10 transition-all duration-300">
+              Schedule Demo
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="border-t border-cyan-500/10 py-12 px-6">
+        <div class="max-w-7xl mx-auto text-center text-gray-500 text-sm">
+          <p>&copy; 2026 Keystone Velocity Capital. Enterprise AI Automation Platform.</p>
+          <p class="mt-4">Powering the next generation of real estate entrepreneurs.</p>
+        </div>
+      </footer>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import keystoneLogo from '@/assets/keystone-logo.svg'
+import { ref, onMounted, onUnmounted } from 'vue'
 
-const isLoginOpen = ref(false)
-const isSignupOpen = ref(false)
+const canvas = ref(null)
+const hoveredAgent = ref(null)
 
-const logoPath = keystoneLogo
-const logoError = ref(false)
+const agents = ref([
+  { id: 1, name: 'Lead Scout', icon: '🔍', description: 'Finds motivated sellers across 50+ states' },
+  { id: 2, name: 'Offer Generator', icon: '💰', description: 'AI-calculated optimal offers in real-time' },
+  { id: 3, name: 'Buyer Matcher', icon: '👥', description: 'Matches deals with perfect buyer profiles' },
+  { id: 4, name: 'Contract Agent', icon: '📝', description: 'Generates state-specific legal contracts' },
+  { id: 5, name: 'Negotiation Bot', icon: '🤝', description: 'Automates seller communications' },
+  { id: 6, name: 'SEO Optimizer', icon: '🔗', description: 'Builds organic lead generation channels' },
+  { id: 7, name: 'Data Analyst', icon: '📊', description: 'Real-time market analysis and comps' },
+  { id: 8, name: 'Finance Agent', icon: '🏦', description: 'Connects with hard money lenders' },
+  { id: 9, name: 'Legal Advisor', icon: '⚖️', description: 'Compliance and contract review' },
+  { id: 10, name: 'CRM Master', icon: '📱', description: 'Manages 1000s of leads automatically' },
+  { id: 11, name: 'Closer Agent', icon: '✅', description: 'Guides deals to closing' },
+  { id: 12, name: 'Exit Strategist', icon: '🚀', description: 'Maximizes profit per transaction' }
+])
+
+const automationSteps = [
+  { title: 'DISCOVER', description: 'AI agents scan millions of properties for investment opportunities' },
+  { title: 'ANALYZE', description: 'Instant market analysis, comps, and deal scoring' },
+  { title: 'EXECUTE', description: 'Automated offers, contracts, and buyer matching' },
+  { title: 'CLOSE', description: '24/7 deal management until closing' }
+]
+
+const pipelineMetrics = [
+  { label: 'Leads Processed', value: 98 },
+  { label: 'Offers Accepted', value: 87 },
+  { label: 'Deals Closed', value: 76 },
+  { label: 'Success Rate', value: 92 }
+]
+
+const revenueMetrics = [
+  { label: 'Avg Deal Size', value: '+$45K' },
+  { label: 'Monthly Volume', value: '180+ Deals' },
+  { label: 'Time to Close', value: '8-10 Days' },
+  { label: 'ROI Multiple', value: '12x Return' }
+]
+
+const features = [
+  { title: 'AI Agent Network', description: '12 specialized agents working in harmony', icon: '🤖' },
+  { title: '24/7 Automation', description: 'Your business never sleeps, neither do we', icon: '⚡' },
+  { title: 'Real-Time Analytics', description: 'Live dashboards and instant insights', icon: '📊' },
+  { title: 'Multi-Channel Sourcing', description: 'Leads from 50+ states and platforms', icon: '🌍' },
+  { title: 'Smart Matching', description: 'Perfect deal-to-buyer matching at scale', icon: '🎯' },
+  { title: 'Enterprise Security', description: 'Bank-level encryption and compliance', icon: '🔒' }
+]
+
+// Animated Background Canvas
+const initCanvas = () => {
+  if (!canvas.value) return
+
+  const ctx = canvas.value.getContext('2d')
+  canvas.value.width = window.innerWidth
+  canvas.value.height = window.innerHeight
+
+  const particles = []
+  const particleCount = 50
+
+  for (let i = 0; i < particleCount; i++) {
+    particles.push({
+      x: Math.random() * canvas.value.width,
+      y: Math.random() * canvas.value.height,
+      radius: Math.random() * 2,
+      vx: (Math.random() - 0.5) * 0.5,
+      vy: (Math.random() - 0.5) * 0.5,
+      opacity: Math.random() * 0.5 + 0.2
+    })
+  }
+
+  const animate = () => {
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.02)'
+    ctx.fillRect(0, 0, canvas.value.width, canvas.value.height)
+
+    particles.forEach((p, idx) => {
+      p.x += p.vx
+      p.y += p.vy
+
+      if (p.x < 0) p.x = canvas.value.width
+      if (p.x > canvas.value.width) p.x = 0
+      if (p.y < 0) p.y = canvas.value.height
+      if (p.y > canvas.value.height) p.y = 0
+
+      ctx.fillStyle = `rgba(34, 211, 238, ${p.opacity})`
+      ctx.beginPath()
+      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2)
+      ctx.fill()
+
+      particles.forEach((p2, idx2) => {
+        if (idx < idx2) {
+          const dx = p.x - p2.x
+          const dy = p.y - p2.y
+          const distance = Math.sqrt(dx * dx + dy * dy)
+
+          if (distance < 150) {
+            ctx.strokeStyle = `rgba(34, 211, 238, ${(1 - distance / 150) * 0.2})`
+            ctx.lineWidth = 0.5
+            ctx.beginPath()
+            ctx.moveTo(p.x, p.y)
+            ctx.lineTo(p2.x, p2.y)
+            ctx.stroke()
+          }
+        }
+      })
+    })
+
+    requestAnimationFrame(animate)
+  }
+
+  animate()
+}
+
+const handleWindowResize = () => {
+  if (canvas.value) {
+    canvas.value.width = window.innerWidth
+    canvas.value.height = window.innerHeight
+  }
+}
+
+const scrollToSection = (sectionId) => {
+  const element = document.getElementById(sectionId)
+  element?.scrollIntoView({ behavior: 'smooth' })
+}
+
+onMounted(() => {
+  initCanvas()
+  window.addEventListener('resize', handleWindowResize)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', handleWindowResize)
+})
 </script>
 
 <style scoped>
-/* Smooth scrolling */
-html {
-  scroll-behavior: smooth;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+canvas {
+  display: block;
+}
+
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.animate-pulse {
+  animation: pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+::selection {
+  background: rgba(34, 211, 238, 0.3);
+  color: #e0f2fe;
 }
 </style>
